@@ -49,9 +49,13 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+            branches:
+              ignore: /.*/
       - production:
           requires:
             - hold
           filters:
             tags:
               only: /^v.*/
+            branches:
+              ignore: /.*/
