@@ -48,8 +48,6 @@ workflows:
     jobs:
       - hold:
           type: approval
-          requires:
-            - test
           filters:
             tags:
               only: /^v.*/
