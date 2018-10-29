@@ -44,6 +44,8 @@ workflows:
           filters:
             branches:
               only: master
+  release:
+    jobs:
       - hold:
           type: approval
           requires:
@@ -51,13 +53,9 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-            branches:
-              ignore: /.*/
       - production:
           requires:
             - hold
           filters:
             tags:
               only: /^v.*/
-            branches:
-              ignore: /.*/
