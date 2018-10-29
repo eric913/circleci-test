@@ -44,8 +44,6 @@ workflows:
           filters:
             branches:
               only: master
-  release:
-    jobs:
       - hold:
           type: approval
           filters:
