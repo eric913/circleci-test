@@ -59,18 +59,18 @@ workflows:
               only: master
 
       # Run only in git tag
-      - notify_manual_approval:
-          requires:
-            - test
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+      # - notify_manual_approval:
+      #     requires:
+      #       - test
+      #     filters:
+      #       tags:
+      #         only: /^v.*/
+      #       branches:
+      #         ignore: /.*/
       - hold:
           type: approval
-          requires:
-            - notify_manual_approval
+          # requires:
+          #   - notify_manual_approval
           filters:
             tags:
               only: /^v.*/
