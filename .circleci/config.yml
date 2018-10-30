@@ -44,7 +44,7 @@ jobs:
             curl \
               -X POST \
               -H 'Content-type: application/json' \
-              --data "{\"text\": \"[${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}] Please approve deploy from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>. \"}" \
+              --data "{\"text\": \"[${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}] Please approve deploy on *${CIRCLE_TAG}* from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>. \"}" \
               $SLACK_WEBHOOK_URL_DEPLOY_APPROVE
 
 workflows:
