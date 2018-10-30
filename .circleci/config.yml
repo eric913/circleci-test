@@ -61,7 +61,12 @@ workflows:
   # Run only in git tag
   release:
     jobs:
-      - test
+      - test:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - notify_manual_approval:
           requires:
             - test
