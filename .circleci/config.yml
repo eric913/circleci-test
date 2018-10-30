@@ -31,6 +31,7 @@ jobs:
       - run:
           name: Production
           command: |
+            env
             echo "This is production"
 
   notify_manual_approval:
