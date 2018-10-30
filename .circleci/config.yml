@@ -31,6 +31,7 @@ jobs:
       - run:
           name: Production
           command: |
+            env
             echo "This is production"
 
   notify_manual_approval:
@@ -43,7 +44,7 @@ jobs:
             curl \
               -X POST \
               -H 'Content-type: application/json' \
-              --data "{\"text\": \"[${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}] Please approve deploy from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>. [<${CIRCLE_COMPARE_URL}|diff>]\"}" \
+              --data "{\"text\": \"[${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}] Please approve deploy from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>. \
               $SLACK_WEBHOOK_URL_DEPLOY_APPROVE
 
 workflows:
