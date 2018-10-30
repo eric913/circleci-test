@@ -31,7 +31,6 @@ jobs:
       - run:
           name: Production
           command: |
-            env
             echo "This is production"
 
   notify_manual_approval:
@@ -49,6 +48,7 @@ jobs:
 
 workflows:
   version: 2
+  # For Staging environment
   build_and_deploy:
     jobs:
       - test
@@ -59,7 +59,7 @@ workflows:
             branches:
               only: master
 
-  # Run only in git tag
+  # For Production environment
   release:
     jobs:
       - test:
@@ -74,8 +74,8 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-          #   branches:
-          #     ignore: /.*/
+            branches:
+              ignore: /.*/
       - hold:
           type: approval
           requires:
@@ -83,13 +83,13 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-          #   branches:
-          #     ignore: /.*/
+            branches:
+              ignore: /.*/
       - production:
           requires:
             - hold
           filters:
             tags:
               only: /^v.*/
-          #   branches:
-          #     ignore: /.*/
+            branches:
+              ignore: /.*/
