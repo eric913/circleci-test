@@ -33,6 +33,19 @@ jobs:
           command: |
             echo "This is production"
 
+  notify_manual_approval:
+    docker:
+      - image: dhoeric/alpine-curl:3.7
+
+    steps:
+      - run:
+          command: |
+            curl \
+              -X POST \
+              -H 'Content-type: application/json' \
+              --data "{\"text\": \"[${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}] Please approve deploy from <https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}|here>. [<${CIRCLE_COMPARE_URL}|diff>]\"}" \
+              $SLACK_WEBHOOK_URL_DEPLOY_APPROVE
+
 workflows:
   version: 2
   build_and_deploy:
@@ -44,8 +57,20 @@ workflows:
           filters:
             branches:
               only: master
+
+      # Run only in git tag
+      - notify_manual_approval:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - hold:
           type: approval
+          requires:
+            - notify_manual_approval
           filters:
             tags:
               only: /^v.*/
